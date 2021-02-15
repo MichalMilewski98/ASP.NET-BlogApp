@@ -1,0 +1,32 @@
+﻿@model Projekt.Data.Post
+@using Projekt.Helpers
+
+
+<div class="row post">
+    <div class="col-md-4">
+        <p class="text-center author-name">
+            @if (Model.author.UserName == Model.author.Email)
+            {
+                @Model.author.Email
+                <br>
+                @CalculateAge(Model.date)
+
+            }
+            else
+            {
+                @Model.author.UserName
+                <br>
+                @CalculateAge(Model.date)
+            }
+        </>
+    </div>
+    <div class="col-md-8">
+        <h4>
+            <a asp-action="Details" asp-route-id="@Model.postId">@Model.title</a>
+        </h4>
+        <markdown>
+            @ShortenedTextHelper.ShortenText(Model.content, 500)
+        </markdown>
+    </div>
+
+</div>

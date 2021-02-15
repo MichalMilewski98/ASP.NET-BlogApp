@@ -1,0 +1,74 @@
+﻿@using Projekt.Helpers
+@model Projekt.Data.Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<markdown>
+    # Details
+</markdown>
+
+    <div class="container">
+        <div class="col-md-8 article-details">
+            <div class="row post">
+                <div class="col-md-4">
+                    <p class="text-center author-name">
+                    @if (Model.author.UserName == Model.author.Email)
+                    {
+                        @Model.author.Email
+                        <br>
+                        @CalculateAgeHelper.CalculateAge(Model.date)
+
+                    }
+                    else
+                    {
+                        @Model.author.UserName
+                        <br>
+                        @CalculateAgeHelper.CalculateAge(Model.date)
+                    }
+                    </>
+                </div>
+                <div class="col-md-8">
+                    <h4>
+                        <a asp-action="Details" asp-route-id="@Model.postId">@Model.title</a>
+                    </h4>
+                    <markdown>
+                        <p>@Model.content</p>
+                    </markdown>
+                </div>
+
+            </div>
+            <hr />
+
+            <div class="col-md-8">
+                <div class="btn-group">
+                    <form method="get" asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.postId" asp-antiforgery="false">
+                        <div class="details">
+                            <br />
+                            <input type="submit" value="Edit" />
+                        </div>
+                    </form>
+                    <form method="get" asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.postId" asp-antiforgery="false">
+                        <div class="details">
+                            <br />
+                            <input type="submit" value="Delete" />
+                        </div>
+                    </form>
+                    <form method="get" asp-controller="Posts" asp-action="Index">
+                        <div class="details">
+                            <br />
+                            <input type="submit" value="Back" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 article-details">
+            @Html.Partial("CommentView", Model)
+            <hr />
+
+        </div>
+
+    </div>

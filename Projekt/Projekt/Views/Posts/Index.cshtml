@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Projekt.Data.Post>
+
+@{
+    ViewData["Title"] = "Posts";
+}
+
+
+<div class="container">
+
+    @foreach (var article in Model)
+    {
+        <div class="article-details">
+            @Html.Partial("_PostShortened", article)
+            <div class ="btnSubmit">
+
+            </div>
+        </div>
+    }
+
+
+
+
+</div>
+
+@section scripts{
+
+    <script>
+        $('#btnSubmit').click(function (event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            $('#form').submit();
+
+            $.ajax({
+                url: 'url',
+                dataType: 'html',
+                success: function(data) {
+                    $('#article-details').html(data);
+                }
+            });
+        });
+    </script>
+}

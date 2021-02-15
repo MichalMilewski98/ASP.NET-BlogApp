@@ -1,0 +1,42 @@
+﻿@model Projekt.Data.Post
+@using Projekt.Helpers
+
+<section id="comments">
+    <div >
+        <markdown>## Comments</markdown>
+
+        @foreach (var comment in Model.comments)
+        {
+            <div class="comment">
+                <blockquote>
+                    @comment.content
+                </blockquote>
+
+            </div>
+            <div class="action-buttons">
+                <form method="post" asp-controller="Posts" asp-action="DeleteComment" asp-route-postid="@Model.postId" asp-antiforgery="false">
+                    <div class="details">
+                        <br/>
+                        <input type="submit" value="Delete comment"/>
+                    </div>
+                </form>
+            </div>
+        }
+
+
+        @if (Model.comments.Count == 0)
+        {
+            <markdown>Post first comment</markdown> 
+        }
+
+        <form method="post" asp-controller="Posts" asp-action="AddComment" asp-route-postid="@Model.postId" asp-antiforgery="false">
+            <br/>
+            <textarea id="content" name="content" rows="5" cols="80" required placeholder="Enter your comment here..."></textarea>
+
+            <div class="details">
+                <br/>
+                <input type="submit" value="Post comment"/>
+            </div>
+        </form>
+    </div>
+</section>
